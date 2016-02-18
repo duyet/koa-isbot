@@ -1,6 +1,6 @@
 {
   "name": "koa-isbot",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "koa detect googlebot, facebookbot, ...",
   "main": "index.js",
   "scripts": {
