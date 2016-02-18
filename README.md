@@ -1,4 +1,4 @@
-# koa-isbot
+# koa-isbot [![Build Status](https://travis-ci.org/duyetdev/koa-isbot.svg?branch=master)](https://travis-ci.org/duyetdev/koa-isbot)
 
 Koa detect robots. Fast Middleware detect bot crawler for Koa.
 
