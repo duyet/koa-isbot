@@ -2,6 +2,8 @@
 
 Koa detect robots. Fast Middleware detect bot crawler for Koa.
 
+[![NPM](https://nodei.co/npm/koa-isbot.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/koa-isbot/)
+
 # Installation
 
 ```sh
