@@ -30,8 +30,8 @@
   },
   "homepage": "https://github.com/duyetdev/koa-isbot#readme",
   "devDependencies": {
-    "koa": "^1.1.2",
-    "nodeunit": "^0.9.1",
-    "supertest": "^1.2.0"
+    "koa": "1.7.0",
+    "nodeunit": "0.9.5",
+    "supertest": "1.2.0"
   }
 }
