@@ -1,10 +1,10 @@
-var koa = new require('koa');
-var request = new require('supertest');
+var koa = equire('koa');
+var request = require('supertest');
 
-var isBot = new require('../');
+var isBot = require('../');
 
 exports['koa'] = function(test) {
-    var app = koa();
+    var app = new koa();
 
     app.use(isBot());
 
