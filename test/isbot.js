@@ -1,4 +1,4 @@
-var koa = equire('koa');
+var koa = require('koa');
 var request = require('supertest');
 
 var isBot = require('../');
