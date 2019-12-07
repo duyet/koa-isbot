@@ -1,5 +1,5 @@
 module.exports = function() {
-    var BOTS = [
+    const BOTS = [
         '\\+https:\\/\\/developers.google.com\\/\\+\\/web\\/snippet\\/',
         'googlebot',
         'baiduspider',
@@ -17,7 +17,8 @@ module.exports = function() {
         'pingdom',
         'tumblr '
     ];
-    var IS_BOT_REGEXP = new RegExp('^.*(' + BOTS.join('|') + ').*$');
+
+    const IS_BOT_REGEXP = new RegExp('^.*(' + BOTS.join('|') + ').*$');
 
     return async (ctx, next) => {
         var source = ctx.request.headers['user-agent'] || 'unknown';
