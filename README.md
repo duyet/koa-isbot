@@ -21,8 +21,8 @@ var koa = require('koa')
 
 app.use(isBot());
 
-app.use(function *(next) {
-    console.log('isBot? ', this.state.isBot); 
+app.use(async (ctx, next) => {
+    console.log('isBot? ', ctx.isBot); 
     // null or 'googlebot', 'bingbot', ...
 });
 
