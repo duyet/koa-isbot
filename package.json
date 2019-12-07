@@ -1,5 +1,5 @@
 {
-  "name": "koa-isbot",
+  "name": "@duyetdev/koa-isbot",
   "version": "0.1.1",
   "description": "koa detect googlebot, facebookbot, ...",
   "main": "index.js",
