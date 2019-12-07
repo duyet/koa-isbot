@@ -19,15 +19,15 @@ module.exports = function() {
     ];
     var IS_BOT_REGEXP = new RegExp('^.*(' + BOTS.join('|') + ').*$');
 
-    return function*(next) {
-        var source = this.request.headers['user-agent'] || 'unknown';
+    return async (ctx, next) => {
+        var source = ctx.request.headers['user-agent'] || 'unknown';
 
         var isBot = IS_BOT_REGEXP.exec(source.toLowerCase());
         if (isBot) {
             isBot = isBot[1];
         }
 
-        this.state.isBot = isBot;
-        yield next;
+        ctx.isBot = isBot;
+        await next();
     }
 }
