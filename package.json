@@ -32,6 +32,6 @@
   "devDependencies": {
     "koa": "2.13.1",
     "nodeunit": "0.11.3",
-    "supertest": "6.1.5"
+    "supertest": "6.1.6"
   }
 }
