@@ -13,9 +13,11 @@ describe('performance benchmarks', () => {
   const USER_AGENTS = {
     googlebot: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
     bingbot: 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)',
-    chrome: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    chrome:
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
     firefox: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0',
-    safari: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15',
+    safari:
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15',
   };
 
   describe('middleware performance', () => {
@@ -30,9 +32,7 @@ describe('performance benchmarks', () => {
       const start = Date.now();
 
       for (let i = 0; i < iterations; i++) {
-        await request(server)
-          .get('/')
-          .set('User-Agent', USER_AGENTS.googlebot);
+        await request(server).get('/').set('User-Agent', USER_AGENTS.googlebot);
       }
 
       const duration = Date.now() - start;
@@ -85,18 +85,14 @@ describe('performance benchmarks', () => {
       // Test with cache
       const cachedStart = Date.now();
       for (let i = 0; i < iterations; i++) {
-        await request(cachedApp.callback())
-          .get('/')
-          .set('User-Agent', userAgent);
+        await request(cachedApp.callback()).get('/').set('User-Agent', userAgent);
       }
       const cachedDuration = Date.now() - cachedStart;
 
       // Test without cache
       const uncachedStart = Date.now();
       for (let i = 0; i < iterations; i++) {
-        await request(uncachedApp.callback())
-          .get('/')
-          .set('User-Agent', userAgent);
+        await request(uncachedApp.callback()).get('/').set('User-Agent', userAgent);
       }
       const uncachedDuration = Date.now() - uncachedStart;
 
@@ -109,10 +105,12 @@ describe('performance benchmarks', () => {
 
   describe('memory efficiency', () => {
     it('should not leak memory with many different user agents', async () => {
-      app.use(koaIsBot({
-        cache: true,
-        cacheSize: 100, // Limit cache size
-      }));
+      app.use(
+        koaIsBot({
+          cache: true,
+          cacheSize: 100, // Limit cache size
+        })
+      );
       app.use((ctx) => {
         ctx.body = 'ok';
       });
@@ -121,9 +119,7 @@ describe('performance benchmarks', () => {
 
       // Generate many unique user agents
       for (let i = 0; i < 200; i++) {
-        await request(server)
-          .get('/')
-          .set('User-Agent', `Bot-${i}/1.0`);
+        await request(server).get('/').set('User-Agent', `Bot-${i}/1.0`);
       }
 
       // Should complete without memory issues
@@ -144,9 +140,7 @@ describe('performance benchmarks', () => {
 
       const promises = [];
       for (let i = 0; i < concurrency; i++) {
-        promises.push(
-          request(server).get('/').set('User-Agent', userAgent)
-        );
+        promises.push(request(server).get('/').set('User-Agent', userAgent));
       }
 
       const start = Date.now();

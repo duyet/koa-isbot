@@ -1,11 +1,4 @@
-import {
-  isbot,
-  isbotMatch,
-  isbotMatches,
-  createIsbotFromList,
-  isbotPatterns,
-  list,
-} from 'isbot';
+import { isbot, isbotMatch, isbotMatches, createIsbotFromList, isbotPatterns, list } from 'isbot';
 import type { Context, Next } from 'koa';
 import { BotDetectionCache } from './cache.js';
 import type {
@@ -92,9 +85,7 @@ export function koaIsBot(options: KoaIsBotOptions = {}): KoaIsBotMiddleware {
 
     // Add custom patterns
     if (config.customPatterns.length > 0) {
-      const customStrings = config.customPatterns.map((p) =>
-        p instanceof RegExp ? p.source : p
-      );
+      const customStrings = config.customPatterns.map((p) => (p instanceof RegExp ? p.source : p));
       patterns = [...patterns, ...customStrings];
     }
 

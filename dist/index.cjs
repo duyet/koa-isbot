@@ -95,9 +95,7 @@ function koaIsBot(options = {}) {
   if (config.customPatterns.length > 0 || config.excludePatterns.length > 0) {
     let patterns = [...isbot.list];
     if (config.customPatterns.length > 0) {
-      const customStrings = config.customPatterns.map(
-        (p) => p instanceof RegExp ? p.source : p
-      );
+      const customStrings = config.customPatterns.map((p) => p instanceof RegExp ? p.source : p);
       patterns = [...patterns, ...customStrings];
     }
     if (config.excludePatterns.length > 0) {

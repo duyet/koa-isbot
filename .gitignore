@@ -31,3 +31,21 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# TypeScript cache
+.tscache/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store

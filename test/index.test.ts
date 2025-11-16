@@ -27,7 +27,10 @@ describe('koaIsBot middleware', () => {
 
       const response = await request(testApp.callback())
         .get('/')
-        .set('User-Agent', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)');
+        .set(
+          'User-Agent',
+          'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+        );
 
       expect(response.status).toBe(200);
       expect(response.body.isBot).toBe(true);
@@ -39,7 +42,10 @@ describe('koaIsBot middleware', () => {
 
       const response = await request(testApp.callback())
         .get('/')
-        .set('User-Agent', 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)');
+        .set(
+          'User-Agent',
+          'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
+        );
 
       expect(response.status).toBe(200);
       expect(response.body.isBot).toBe(true);
@@ -51,7 +57,10 @@ describe('koaIsBot middleware', () => {
 
       const response = await request(testApp.callback())
         .get('/')
-        .set('User-Agent', 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; ChatGPT-User/1.0; +https://openai.com/bot');
+        .set(
+          'User-Agent',
+          'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; ChatGPT-User/1.0; +https://openai.com/bot'
+        );
 
       expect(response.status).toBe(200);
       expect(response.body.isBot).toBe(true);
@@ -62,7 +71,10 @@ describe('koaIsBot middleware', () => {
 
       const response = await request(testApp.callback())
         .get('/')
-        .set('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+        .set(
+          'User-Agent',
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        );
 
       expect(response.status).toBe(200);
       expect(response.body.isBot).toBe(false);
@@ -87,9 +99,7 @@ describe('koaIsBot middleware', () => {
         ctx.body = { customKey: ctx.state.bot };
       });
 
-      const response = await request(app.callback())
-        .get('/')
-        .set('User-Agent', 'Googlebot');
+      const response = await request(app.callback()).get('/').set('User-Agent', 'Googlebot');
 
       expect(response.status).toBe(200);
       expect(response.body.customKey.isBot).toBe(true);
@@ -98,13 +108,13 @@ describe('koaIsBot middleware', () => {
 
   describe('custom patterns', () => {
     it('should detect custom bot patterns', async () => {
-      const testApp = createTestApp(koaIsBot({
-        customPatterns: ['mybot', /customcrawler/i],
-      }));
+      const testApp = createTestApp(
+        koaIsBot({
+          customPatterns: ['mybot', /customcrawler/i],
+        })
+      );
 
-      const response1 = await request(testApp.callback())
-        .get('/')
-        .set('User-Agent', 'mybot/1.0');
+      const response1 = await request(testApp.callback()).get('/').set('User-Agent', 'mybot/1.0');
 
       expect(response1.body.isBot).toBe(true);
 
@@ -116,13 +126,13 @@ describe('koaIsBot middleware', () => {
     });
 
     it('should still detect standard bots with custom patterns', async () => {
-      const testApp = createTestApp(koaIsBot({
-        customPatterns: ['mybot'],
-      }));
+      const testApp = createTestApp(
+        koaIsBot({
+          customPatterns: ['mybot'],
+        })
+      );
 
-      const response = await request(testApp.callback())
-        .get('/')
-        .set('User-Agent', 'Googlebot');
+      const response = await request(testApp.callback()).get('/').set('User-Agent', 'Googlebot');
 
       expect(response.body.isBot).toBe(true);
     });
@@ -130,13 +140,18 @@ describe('koaIsBot middleware', () => {
 
   describe('exclude patterns', () => {
     it('should exclude specified patterns', async () => {
-      const testApp = createTestApp(koaIsBot({
-        excludePatterns: ['chrome-lighthouse'],
-      }));
+      const testApp = createTestApp(
+        koaIsBot({
+          excludePatterns: ['chrome-lighthouse'],
+        })
+      );
 
       const response = await request(testApp.callback())
         .get('/')
-        .set('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36 Chrome-Lighthouse');
+        .set(
+          'User-Agent',
+          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36 Chrome-Lighthouse'
+        );
 
       // This would normally be detected as a bot, but we excluded it
       // Note: isbot might not have chrome-lighthouse in the list, so this test
@@ -154,9 +169,7 @@ describe('koaIsBot middleware', () => {
         ctx.body = 'ok';
       });
 
-      await request(app.callback())
-        .get('/')
-        .set('User-Agent', 'Googlebot');
+      await request(app.callback()).get('/').set('User-Agent', 'Googlebot');
 
       expect(onBotDetected).toHaveBeenCalledTimes(1);
       expect(onBotDetected).toHaveBeenCalledWith(
@@ -190,13 +203,9 @@ describe('koaIsBot middleware', () => {
         ctx.body = 'ok';
       });
 
-      await request(app.callback())
-        .get('/')
-        .set('User-Agent', 'Googlebot');
+      await request(app.callback()).get('/').set('User-Agent', 'Googlebot');
 
-      await request(app.callback())
-        .get('/')
-        .set('User-Agent', 'Mozilla/5.0 Chrome/91.0');
+      await request(app.callback()).get('/').set('User-Agent', 'Mozilla/5.0 Chrome/91.0');
 
       expect(onDetection).toHaveBeenCalledTimes(2);
     });
@@ -213,9 +222,7 @@ describe('koaIsBot middleware', () => {
         ctx.body = 'ok';
       });
 
-      await request(app.callback())
-        .get('/')
-        .set('User-Agent', 'Googlebot');
+      await request(app.callback()).get('/').set('User-Agent', 'Googlebot');
 
       expect(callbackExecuted).toBe(true);
     });
@@ -223,15 +230,16 @@ describe('koaIsBot middleware', () => {
 
   describe('custom user agent extraction', () => {
     it('should use custom getUserAgent function', async () => {
-      app.use(koaIsBot({
-        getUserAgent: (ctx: Context) => ctx.query.ua as string,
-      }));
+      app.use(
+        koaIsBot({
+          getUserAgent: (ctx: Context) => ctx.query.ua as string,
+        })
+      );
       app.use((ctx) => {
         ctx.body = ctx.state.isBot;
       });
 
-      const response = await request(app.callback())
-        .get('/?ua=Googlebot');
+      const response = await request(app.callback()).get('/?ua=Googlebot');
 
       expect(response.body.isBot).toBe(true);
     });
@@ -260,13 +268,9 @@ describe('koaIsBot middleware', () => {
     it('should respect cache option when disabled', async () => {
       const testApp = createTestApp(koaIsBot({ cache: false }));
 
-      const response1 = await request(testApp.callback())
-        .get('/')
-        .set('User-Agent', 'Googlebot');
+      const response1 = await request(testApp.callback()).get('/').set('User-Agent', 'Googlebot');
 
-      const response2 = await request(testApp.callback())
-        .get('/')
-        .set('User-Agent', 'Googlebot');
+      const response2 = await request(testApp.callback()).get('/').set('User-Agent', 'Googlebot');
 
       expect(response1.body.isBot).toBe(true);
       expect(response2.body.isBot).toBe(true);
@@ -279,9 +283,7 @@ describe('koaIsBot middleware', () => {
 
       const longUA = 'A'.repeat(10000) + ' Googlebot';
 
-      const response = await request(testApp.callback())
-        .get('/')
-        .set('User-Agent', longUA);
+      const response = await request(testApp.callback()).get('/').set('User-Agent', longUA);
 
       expect(response.status).toBe(200);
       expect(response.body.isBot).toBeDefined();
@@ -294,18 +296,18 @@ describe('koaIsBot middleware', () => {
 
       const specialUA = 'Bot<script>alert("xss")</script>';
 
-      const response = await request(testApp.callback())
-        .get('/')
-        .set('User-Agent', specialUA);
+      const response = await request(testApp.callback()).get('/').set('User-Agent', specialUA);
 
       expect(response.status).toBe(200);
       expect(response.body).toBeDefined();
     });
 
     it('should handle null/undefined user agent gracefully', async () => {
-      app.use(koaIsBot({
-        getUserAgent: () => undefined,
-      }));
+      app.use(
+        koaIsBot({
+          getUserAgent: () => undefined,
+        })
+      );
       app.use((ctx) => {
         ctx.body = ctx.state.isBot;
       });
@@ -333,9 +335,7 @@ describe('koaIsBot middleware', () => {
         };
       });
 
-      const response = await request(app.callback())
-        .get('/')
-        .set('User-Agent', 'Googlebot');
+      const response = await request(app.callback()).get('/').set('User-Agent', 'Googlebot');
 
       expect(response.body.requestId).toBe('123');
       expect(response.body.bot.isBot).toBe(true);
@@ -348,9 +348,7 @@ describe('koaIsBot middleware', () => {
         throw new Error('Test error');
       });
 
-      const response = await request(app.callback())
-        .get('/')
-        .set('User-Agent', 'Googlebot');
+      const response = await request(app.callback()).get('/').set('User-Agent', 'Googlebot');
 
       expect(response.status).toBe(500);
     });
@@ -360,9 +358,7 @@ describe('koaIsBot middleware', () => {
     it('should provide bot patterns array', async () => {
       const testApp = createTestApp(koaIsBot());
 
-      const response = await request(testApp.callback())
-        .get('/')
-        .set('User-Agent', 'Googlebot');
+      const response = await request(testApp.callback()).get('/').set('User-Agent', 'Googlebot');
 
       expect(response.body.botPatterns).toBeDefined();
       expect(Array.isArray(response.body.botPatterns)).toBe(true);

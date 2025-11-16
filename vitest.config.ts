@@ -14,6 +14,7 @@ export default defineConfig({
         'examples/**',
         '**/*.config.ts',
         '**/*.d.ts',
+        '**/*.js', // Exclude old JS files
       ],
       thresholds: {
         lines: 90,
