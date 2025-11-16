@@ -1,10 +1,41 @@
 {
   "name": "@duyetdev/koa-isbot",
-  "version": "0.1.1",
-  "description": "koa detect googlebot, facebookbot, ...",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "Modern Koa middleware for bot detection using industry-standard isbot library. Detect Google, Bing, ChatGPT, Claude, and thousands of other bots with TypeScript support.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "test": "node --harmony node_modules/.bin/nodeunit test/isbot.js"
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src test --ext .ts",
+    "lint:fix": "eslint src test --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"examples/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\" \"examples/**/*.ts\"",
+    "prepublishOnly": "npm run build && npm run test",
+    "prepack": "npm run build",
+    "prepare": "husky || true"
   },
   "repository": {
     "type": "git",
@@ -13,15 +44,22 @@
   "keywords": [
     "koa",
     "koajs",
-    "detect",
-    "duyetdev",
+    "koa2",
+    "middleware",
+    "bot",
+    "bot-detection",
+    "crawler",
+    "spider",
     "isbot",
-    "isrobot",
+    "user-agent",
     "googlebot",
-    "baiduspider",
     "bingbot",
-    "twitterbot",
-    "middleware"
+    "chatgpt",
+    "claude",
+    "perplexity",
+    "typescript",
+    "esm",
+    "cjs"
   ],
   "author": "Van-Duyet Le <me@duyetdev.com>",
   "license": "MIT",
@@ -29,9 +67,41 @@
     "url": "https://github.com/duyetdev/koa-isbot/issues"
   },
   "homepage": "https://github.com/duyetdev/koa-isbot#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "isbot": "^5.1.17"
+  },
   "devDependencies": {
-    "koa": "2.16.3",
-    "nodeunit": "0.11.3",
-    "supertest": "6.3.4"
+    "@types/koa": "^2.15.0",
+    "@types/node": "^20.17.9",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.7",
+    "koa": "^2.16.3",
+    "lint-staged": "^15.2.11",
+    "prettier": "^3.4.2",
+    "supertest": "^7.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "peerDependencies": {
+    "koa": "^2.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
