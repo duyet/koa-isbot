@@ -48,11 +48,7 @@ const analytics = {
 app.use(
   koaIsBot({
     // Add custom bot patterns for company-specific crawlers
-    customPatterns: [
-      'my-internal-bot',
-      /company-crawler/i,
-      'monitoring-service',
-    ],
+    customPatterns: ['my-internal-bot', /company-crawler/i, 'monitoring-service'],
 
     // Exclude Google Lighthouse from being treated as a bot
     // (useful if you want to see real performance scores)
