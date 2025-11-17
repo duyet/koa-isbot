@@ -74,7 +74,7 @@
     "isbot": "^5.1.17"
   },
   "devDependencies": {
-    "@types/koa": "^2.15.0",
+    "@types/koa": "^3.0.0",
     "@types/node": "^20.17.9",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
@@ -83,7 +83,7 @@
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.1.7",
-    "koa": "^2.16.3",
+    "koa": "^3.0.0",
     "lint-staged": "^15.2.11",
     "prettier": "^3.4.2",
     "supertest": "^7.0.0",
@@ -92,7 +92,7 @@
     "vitest": "^2.1.8"
   },
   "peerDependencies": {
-    "koa": "^2.0.0"
+    "koa": "^2.0.0 || ^3.0.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
