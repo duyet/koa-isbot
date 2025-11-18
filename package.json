@@ -76,8 +76,8 @@
   "devDependencies": {
     "@types/koa": "^3.0.0",
     "@types/node": "^24.0.0",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
     "@vitest/coverage-v8": "^2.1.8",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.0.0",
